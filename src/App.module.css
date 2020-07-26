@@ -5,4 +5,20 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+.image {
+    width: 370px;
+    margin-top: 40px;
+}
+
+@media screen and (max-width: 770px) {
+    .container {
+        margin: 0 10%;
+    }
+
+    .image {
+        width: 100px;
+    }
 }

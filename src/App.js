@@ -7,24 +7,38 @@ import { fetchData } from './api'
 
 class App extends Component {
 
-    state = {}
+    state = {
+        data: {},
+        country: ''
+    }
 
     async componentDidMount() {
         const fetchedData = await fetchData()
 
         this.setState({ data: fetchedData })
 
-        console.log('-->', fetchedData)
+        //console.log('-->', fetchedData)
+    }
+
+    handleCountryChange = async (country) => {
+        //console.log(country)
+
+        this.setState({ country: country })
+        const fetchedData = country === 'global' ? await fetchData() : await fetchData(country)
+        //console.log(fetchedData)
+        this.setState({ data: fetchedData })
+
     }
 
     render() {
 
-        const { data } = this.state
+        const { data, country } = this.state
 
         return <div className={styles.container}>
+            <img className={styles.image} src={require('./assets/image.png')} alt='corona' />
             <Cards data={data} />
-            <CountryPicker />
-            <Chart />
+            <CountryPicker handleCountryChange={this.handleCountryChange} />
+            <Chart data={data} country={country} />
         </div>
     }
 }
